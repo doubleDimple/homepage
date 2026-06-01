@@ -1,15 +1,11 @@
 # Cloudflare Pages configuration
-# This file is used for local development with wrangler
-
 name = "homepage"
+pages_build_output_dir = "./dist"
 compatibility_date = "2024-01-01"
 
-# KV namespace for storing site configuration
-# Create with: wrangler kv:namespace create CONFIG
-# Then fill in the id below
 [[kv_namespaces]]
 binding = "KV"
-id = "YOUR_KV_NAMESPACE_ID"  # Replace after creating
+id = "dedb9086175244e79a9a73bf3e256281"
 
 [vars]
-ADMIN_PASSWORD = "your-secure-password"  # Change this!
+ADMIN_PASSWORD = "dd2026homepage"
