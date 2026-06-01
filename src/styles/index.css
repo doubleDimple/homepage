@@ -2,109 +2,159 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 :root {
-  --bg-gradient-start: #667eea;
-  --bg-gradient-end: #764ba2;
+  --bg-start: #0f0c29;
+  --bg-mid: #302b63;
+  --bg-end: #24243e;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  background: #0f0c29;
 }
 
 body {
-  font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Inter', 'PingFang SC', 'Microsoft YaHei', sans-serif;
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  background: linear-gradient(135deg, var(--bg-start), var(--bg-mid), var(--bg-end));
   background-attachment: fixed;
-  color: #fff;
+  background-size: cover;
+  color: #e2e8f0;
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Glassmorphism */
+/* === Glass Cards === */
 .glass {
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .glass-strong {
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .glass-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease;
 }
 .glass-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 3px;
-}
-
-/* Bokeh background */
-.bokeh {
+/* === Animated Gradient Orbs === */
+.orb-container {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
 }
-.bokeh span {
+.orb {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  animation: float 20s infinite ease-in-out;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: drift 25s infinite ease-in-out;
 }
-.bokeh span:nth-child(1) { width: 300px; height: 300px; top: 10%; left: 20%; animation-delay: 0s; }
-.bokeh span:nth-child(2) { width: 200px; height: 200px; top: 60%; left: 70%; animation-delay: 5s; }
-.bokeh span:nth-child(3) { width: 150px; height: 150px; top: 30%; left: 80%; animation-delay: 10s; }
-.bokeh span:nth-child(4) { width: 250px; height: 250px; top: 70%; left: 10%; animation-delay: 15s; }
-
-@keyframes float {
-  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
-  25% { transform: translate(30px, -30px) scale(1.1); }
-  50% { transform: translate(-20px, 20px) scale(0.9); opacity: 0.8; }
-  75% { transform: translate(10px, -10px) scale(1.05); }
+.orb:nth-child(1) {
+  width: 500px; height: 500px;
+  top: -10%; left: 10%;
+  background: radial-gradient(circle, #667eea, transparent);
+  animation-delay: 0s;
+}
+.orb:nth-child(2) {
+  width: 400px; height: 400px;
+  top: 50%; right: -5%;
+  background: radial-gradient(circle, #764ba2, transparent);
+  animation-delay: -8s;
+}
+.orb:nth-child(3) {
+  width: 350px; height: 350px;
+  bottom: -5%; left: 30%;
+  background: radial-gradient(circle, #f093fb, transparent);
+  animation-delay: -16s;
 }
 
-/* Tag pill */
-.tag-pill {
-  display: inline-block;
-  padding: 4px 14px;
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.1); }
+  66% { transform: translate(-20px, 40px) scale(0.95); }
+}
+
+/* === Skill Pills === */
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 16px;
   border-radius: 9999px;
-  font-size: 0.8rem;
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  transition: background 0.2s;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  background: rgba(99, 102, 241, 0.15);
+  border: 1px solid rgba(99, 102, 241, 0.25);
+  color: #a5b4fc;
+  transition: all 0.2s;
 }
-.tag-pill:hover {
-  background: rgba(255, 255, 255, 0.25);
+.skill-pill:hover {
+  background: rgba(99, 102, 241, 0.25);
+  border-color: rgba(99, 102, 241, 0.4);
+  transform: translateY(-1px);
 }
 
-/* Dark mode override */
-.dark body {
-  background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+/* === Scrollbar === */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+
+/* === Contribution Heatmap === */
+.contrib-grid {
+  display: grid;
+  grid-template-rows: repeat(7, 1fr);
+  grid-auto-flow: column;
+  gap: 3px;
 }
+.contrib-cell {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: all 0.15s;
+}
+.contrib-cell.l1 { background: rgba(99, 102, 241, 0.2); }
+.contrib-cell.l2 { background: rgba(99, 102, 241, 0.4); }
+.contrib-cell.l3 { background: rgba(99, 102, 241, 0.6); }
+.contrib-cell.l4 { background: rgba(99, 102, 241, 0.85); }
+.contrib-cell:hover { transform: scale(1.4); border-radius: 2px; }
+
+/* === Animated entry === */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in {
+  animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  opacity: 0;
+}
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }

@@ -1,7 +1,9 @@
 export default function BokehBackground() {
   return (
-    <div className="bokeh">
-      <span /><span /><span /><span />
+    <div className="orb-container">
+      <div className="orb" />
+      <div className="orb" />
+      <div className="orb" />
     </div>
   );
 }

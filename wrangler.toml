@@ -1,4 +1,3 @@
-# Cloudflare Pages configuration
 name = "homepage"
 pages_build_output_dir = "./dist"
 compatibility_date = "2024-01-01"
@@ -8,4 +7,4 @@ binding = "KV"
 id = "dedb9086175244e79a9a73bf3e256281"
 
 [vars]
-ADMIN_PASSWORD = "dd2026homepage"
+ADMIN_PASSWORD="dd2026homepage"
